@@ -10,7 +10,7 @@ checkStringLength('Привет', 11);
 // Функция проверки на палиндром через цикл.
 
 function isPalindrom2 (string) {
-  const usualString = string.toUpperCase(''). replaceAll(' ', '');
+  const usualString = string.toUpperCase('').replaceAll(' ', '');
   let newString = '';
 
   for (let i = usualString.length - 1; i >= 0; i--) {
@@ -33,10 +33,10 @@ function isPalindrom (string) {
   // Приводим строку к верхнему регистру, убираем пробел, сравниваем строку, которая разбита на массив, отзеркалена и собрана обратно с изначальной строкой.
   //replace(/\s+/g, '') - убрать пробелы вариант 2?
 
-  string = string.toUpperCase(''). replaceAll(' ', '');
+  string = string.toUpperCase('').replaceAll(' ', '');
 
 
-  return string === string.split(''). reverse(''). join('');
+  return string === string.split('').reverse('').join('');
 }
 
 isPalindrom('топот');
