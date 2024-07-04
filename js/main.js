@@ -124,4 +124,5 @@ const dataGeneration = () => ({
 
 const generatePostList = Array.from({length: PHOTO_AMOUNT}, dataGeneration);
 
+// eslint-disable-next-line
 console.log(generatePostList);
