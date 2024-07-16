@@ -1,4 +1,3 @@
-import {generatePostList} from './createData';
+import { createUsersCards } from './photoPreview.js';
 
-// eslint-disable-next-line
-console.log(generatePostList());
+createUsersCards(document.querySelector('.pictures'));
