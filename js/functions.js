@@ -78,3 +78,31 @@ checkMeetingTime('8:0', '10:0', '8:0', 120); // true
 checkMeetingTime('08:00', '14:30', '14:00', 90); // false
 checkMeetingTime('14:00', '17:30', '08:0', 90); // false
 checkMeetingTime('8:00', '17:30', '08:00', 900); // false
+
+/*
+const onDocumentKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    closePictureModal();
+  }
+};
+
+function openPictureModal () {
+  pictures.addEventListener('click', (e) => {
+    if (e.target.closest('.picture')) {
+      fullSizePicture.classList.remove('hidden');
+      document.body.classList.add('modal-open');
+    }
+    document.addEventListener('keydown', onDocumentKeydown);
+  });
+}
+
+function closePictureModal () {
+  closeFullSizePicture.addEventListener('click', () => {
+    fullSizePicture.classList.add('hidden');
+  });
+  document.removeEventListener('keydown', onDocumentKeydown);
+}
+
+closePictureModal();
+openPictureModal();*/
