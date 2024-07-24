@@ -30,4 +30,4 @@ const dataPostGeneration = () => ({
 
 const generatePostList = () => Array.from({length: PHOTO_AMOUNT}, dataPostGeneration);
 
-export {generatePostList};
+export { generatePostList, createComment };

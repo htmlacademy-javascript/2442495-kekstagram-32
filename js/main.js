@@ -1,6 +1,3 @@
-import { createUsersCards } from './photoPreview.js';
-import './fullSizePictures.js';
-import './photoPreview.js';
+import { createUsersCards } from './createPhotoPreview.js';
 
-//generatePostList();
 createUsersCards(document.querySelector('.pictures'));
