@@ -25,7 +25,7 @@ const dataPostGeneration = () => ({
   url: `photos/${ getUniqRandomInteger() }.jpg`,
   description: getRandomArrayElement(DESCRIPTION),
   likes: getRandomIntegerInInterval(LIKES_AMOUNT.minLikes, LIKES_AMOUNT.maxLikes),
-  comments: Array.from({length: getRandomIntegerInInterval(COMMENTS_AMOUNT.min, COMMENTS_AMOUNT.max)}, createComment),
+  comments: Array.from({length:getRandomIntegerInInterval(COMMENTS_AMOUNT.min, COMMENTS_AMOUNT.max)}, createComment),
 });
 
 const generatePostList = () => Array.from({length: PHOTO_AMOUNT}, dataPostGeneration);

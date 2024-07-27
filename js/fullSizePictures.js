@@ -1,10 +1,11 @@
 import { isEscapeKey } from './utils.js';
 
+const COMMENTS_AT_ONCE = 5;
 const fullSizePicture = document.querySelector('.big-picture');
 const closeFullSizePictureButton = fullSizePicture.querySelector('.big-picture__cancel');
-const socialCommentsList = document.querySelector('.social__comments');
 const commentTemplate = document.querySelector('#social-comment').content.querySelector('.social__comment');
-const COMMENTS_AT_ONCE = 5;
+const socialCommentsCount = fullSizePicture.querySelector('.social__comment-count');
+const socialCommentsList = fullSizePicture.querySelector('.social__comments');
 const socialCommentsShown = fullSizePicture.querySelector('.social__comment-shown-count');
 const socialCommentsTotal = fullSizePicture.querySelector('.social__comment-total-count');
 const commentsLoaderButton = fullSizePicture.querySelector('.social__comments-loader');
@@ -22,15 +23,20 @@ const generateComment = ({avatar, name, message}) => {
   return commentElement;
 };
 
-// Отображение комментариев.
-const renderComments = () => {
-  commentsShown += COMMENTS_AT_ONCE;
-  if (commentsShown > comments.length) {
+// Отображение кнопки  'Загрузить еще'.
+const setCommentsLoaderButton = () => {
+  if (commentsShown >= comments.length) {
     commentsLoaderButton.classList.add('hidden');
     commentsShown = comments.length;
   } else {
     commentsLoaderButton.classList.remove('hidden');
   }
+};
+
+// Отображение комментариев.
+const renderComments = () => {
+  commentsShown += COMMENTS_AT_ONCE;
+  setCommentsLoaderButton();
 
   const commentsContainer = document.createDocumentFragment();
 
@@ -77,7 +83,7 @@ const renderBigPicture = ({ url, description, likes }) => {
 
 // Обработчик на закрытие полноразмерного поста.
 
-const oncloseFullSizePictureButton = () => {
+const onCloseFullSizePictureButton = () => {
   closeFullSizePictureButton.addEventListener('click', () => {
     closePictureModal();
   });
@@ -90,16 +96,19 @@ const onCommentsLoaderButton = () => {
 
 // Функция открытия полноразмерного поста.
 
-function openPictureModal (data) {
+const openPictureModal = (data) => {
   openBigPicture();
   renderBigPicture(data);
   comments = data.comments;
   if (comments.length > 0) {
     renderComments();
+    onCommentsLoaderButton();
+  } else {
+    socialCommentsCount.classList.add('hidden');
+    setCommentsLoaderButton();
   }
   document.addEventListener('keydown', onDocumentKeydown);
-  oncloseFullSizePictureButton();
-  onCommentsLoaderButton();
-}
+  onCloseFullSizePictureButton();
+};
 
 export { openPictureModal };
