@@ -44,7 +44,6 @@ const renderComments = () => {
     const comment = generateComment(comments[i]);
     commentsContainer.append(comment);
   }
-  socialCommentsList.innerHTML = '';
   socialCommentsList.append(commentsContainer);
   socialCommentsShown.textContent = commentsShown;
   socialCommentsTotal.textContent = comments.length;
@@ -71,6 +70,7 @@ function closePictureModal () {
   document.removeEventListener('keydown', onDocumentKeydown);
   document.body.classList.remove('modal-open');
   commentsShown = 0;
+  socialCommentsList.innerHTML = '';
 }
 
 // Отображение поста с фото.
