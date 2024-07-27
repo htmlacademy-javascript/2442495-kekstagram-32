@@ -44,6 +44,7 @@ const renderComments = () => {
     const comment = generateComment(comments[i]);
     commentsContainer.append(comment);
   }
+  socialCommentsList.innerHTML = '';
   socialCommentsList.append(commentsContainer);
   socialCommentsShown.textContent = commentsShown;
   socialCommentsTotal.textContent = comments.length;
