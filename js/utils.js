@@ -27,4 +27,7 @@ function getUniqRandomIntegerGenerator (min, max) {
 // Находим случайный индекс в массиве.
 const getRandomArrayElement = (elements) => elements[getRandomIntegerInInterval(0, elements.length - 1)];
 
-export { getRandomIntegerInInterval, getUniqRandomIntegerGenerator, getRandomArrayElement };
+// Проверяем наличие кнопки ESCAPE.
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export { getRandomIntegerInInterval, getUniqRandomIntegerGenerator, getRandomArrayElement, isEscapeKey };

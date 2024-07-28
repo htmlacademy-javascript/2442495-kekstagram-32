@@ -1,3 +1,3 @@
-import { createUsersCards } from './photoPreview.js';
+import { createUsersCards } from './createPhotoPreview.js';
 
 createUsersCards(document.querySelector('.pictures'));
