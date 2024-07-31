@@ -1,5 +1,3 @@
-//import { onUploadKeydown } from './photoUpload';
-//import { closeUploadForm } from './photoUpload';
 const VALID_HASHTAG = /^#[A-ZА-ЯЁa-zа-яё0-9]{1,19}$/;
 const MAX_HASHTAGS = 5;
 const MAX_COMMENTS_LENGTH = 140;
@@ -18,7 +16,7 @@ const errorMessage = {
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
-  errorTextCLass: 'img-upload__field-wrapper--error'
+  errorTextClass: 'img-upload__field-wrapper--error'
 });
 
 // Преобразование строки.
@@ -28,7 +26,7 @@ const normalizeString = (value) => {
 };
 
 // Проверка валидности хэштега.
-const checkValidHastag = (value) => normalizeString(value).every((tag) => VALID_HASHTAG.test(tag));
+const checkValidHastags = (value) => normalizeString(value).every((tag) => VALID_HASHTAG.test(tag));
 
 // Проверка количества хэштегов.
 const checkHashtagsAmount = (value) => normalizeString(value).length <= MAX_HASHTAGS;
@@ -48,7 +46,7 @@ const isFieldsInFocus = () => hashtagsField === document.activeElement || commen
 
 pristine.addValidator(
   hashtagsField,
-  checkValidHastag,
+  checkValidHastags,
   errorMessage.INVALID__HASHTAG
 );
 
@@ -73,8 +71,7 @@ pristine.addValidator(
 const onSubmitForm = (evt) => {
 
   evt.preventDefault();
-  const validForm = pristine.validate();
-  if (validForm) {
+  if (pristine.validate()) {
     // отправляем
   } else {
     evt.preventDefault();
