@@ -1,5 +1,5 @@
-import { generatePostList } from './createData';
-import { openPictureModal } from './fullSizePictures';
+import { generatePostList } from './create-data';
+import { openPictureModal } from './full-size-pictures-modal';
 
 const pictures = document.querySelector('.pictures');
 const picturePreviewTemplate = document.querySelector('#picture').content.querySelector('.picture');
