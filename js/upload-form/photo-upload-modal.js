@@ -1,7 +1,7 @@
 import { isEscapeKey } from '../utils.js';
 import { isFieldsInFocus, onSubmitForm, uploadForm, pristine } from './pristine-validation.js';
 import { resetScale, onSmallerButtonScale, onBiggerButtonScale, biggerButtonScale, smallerButtonScale } from './photo-editing/scale-image.js';
-import { resetSliderEffect, init } from './photo-editing/effect-image.js';
+import { resetSliderEffect, initEffectImage } from './photo-editing/effect-image.js';
 
 const uploadInput = document.querySelector('.img-upload__input');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
@@ -39,7 +39,7 @@ const openUploadForm = () => {
   imgUploadOverlay.classList.remove('hidden');
   document.body.classList.add('modal-open');
   onImgUploadCancelButton();
-  init();
+  initEffectImage();
   smallerButtonScale.addEventListener('click', onSmallerButtonScale);
   biggerButtonScale.addEventListener('click', onBiggerButtonScale);
   document.addEventListener('keydown', onEscKeydown);

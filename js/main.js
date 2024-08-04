@@ -3,4 +3,3 @@ import { openUploadModal } from './upload-form/photo-upload-modal.js';
 
 createUsersCards(document.querySelector('.pictures'));
 openUploadModal();
-//import './photo-editing/effect-image.js';

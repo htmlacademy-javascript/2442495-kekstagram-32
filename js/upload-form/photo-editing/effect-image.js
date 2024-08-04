@@ -1,7 +1,7 @@
 import { uploadElement, imageElement } from './scale-image';
 
 
-const effects = uploadElement.querySelector('.effects');
+const effectsContainer = uploadElement.querySelector('.effects');
 const effectSlider = uploadElement.querySelector('.effect-level__slider');
 const effectWrapper = uploadElement.querySelector('.img-upload__effect-level');
 const effectLevelValue = uploadElement.querySelector('.effect-level__value');
@@ -148,9 +148,9 @@ const onSliderChange = (evt) => {
 };
 
 // Инициализация настроек слайдера и добавление обработчик событий.
-const init = () => {
+const initEffectImage = () => {
   createSliderEffect(settingEffectsForSlider[selectedEffect]);
-  effects.addEventListener('change', onSliderChange);
+  effectsContainer.addEventListener('change', onSliderChange);
 };
 
-export { resetSliderEffect, init };
+export { resetSliderEffect, initEffectImage };
