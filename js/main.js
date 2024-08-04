@@ -1,5 +1,21 @@
-import { createUsersCards } from './create-photo-preview.js';
-import { openUploadModal } from './upload-form/photo-upload-modal.js';
+import { initPicturesGallery } from './utils/pictures-gallery/render-picture-gallery.js';
+import { openUploadModal, closeUploadForm, onSubmitForm } from './upload-form/photo-upload-modal.js';
+import { sendData } from './api.js';
+import { showErrorMessage, showSuccessMessage } from './utils/messages/error-success-upload-mage.js';
 
-createUsersCards(document.querySelector('.pictures'));
+// Отображение галлереии изображений с сервера.
+initPicturesGallery();
+
+// Открытие модального окна после загрузки фото.
 openUploadModal();
+
+
+onSubmitForm(async (data) => {
+  try {
+    await sendData(data);
+    closeUploadForm();
+    showSuccessMessage();
+  } catch {
+    showErrorMessage();
+  }
+});

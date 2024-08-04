@@ -68,15 +68,5 @@ pristine.addValidator(
   errorMessage. INVALID_COMMENTS_LENGTH
 );
 
-const onSubmitForm = (evt) => {
 
-  evt.preventDefault();
-  if (pristine.validate()) {
-    // отправляем
-  } else {
-    evt.preventDefault();
-  }
-};
-
-
-export { isFieldsInFocus, onSubmitForm, uploadForm, pristine };
+export { isFieldsInFocus, uploadForm, pristine };
