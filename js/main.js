@@ -1,4 +1,4 @@
-import { initPicturesGallery } from './utils/pictures-gallery/render-picture-gallery.js';
+import { initPicturesGallery } from './pictures-gallery/render-picture-gallery.js';
 import { openUploadModal, closeUploadForm, onSubmitForm } from './upload-form/photo-upload-modal.js';
 import { sendData } from './api.js';
 import { showErrorMessage, showSuccessMessage } from './utils/messages/error-success-upload-mage.js';

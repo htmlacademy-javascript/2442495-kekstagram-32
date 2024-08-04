@@ -1,4 +1,4 @@
-import { isEscapeKey } from '../escape-key.js';
+import { isEscapeKey } from '../utils/escape-key.js';
 
 const COMMENTS_AT_ONCE = 5;
 const fullSizePicture = document.querySelector('.big-picture');

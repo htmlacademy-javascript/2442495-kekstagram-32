@@ -1,7 +1,7 @@
 import { renderPicturesPreviews } from './create-preview';
 import { openPictureModal } from './full-size-pictures-modal';
-import { showAlert } from '../messages/alert';
-import { getData } from '../../api';
+import { showAlert } from '../utils/messages/alert';
+import { getData } from '../api';
 
 const pictures = document.querySelector('.pictures');
 
