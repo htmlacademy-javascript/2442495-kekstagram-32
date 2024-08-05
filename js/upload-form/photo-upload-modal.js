@@ -1,14 +1,37 @@
-import { isEscapeKey } from '../utils.js';
-import { isFieldsInFocus, onSubmitForm, uploadForm, pristine } from './pristine-validation.js';
+import { isEscapeKey } from '../utils/escape-key.js';
+import { isFieldsInFocus, uploadForm, pristine } from './pristine-validation.js';
 import { resetScale, onSmallerButtonScale, onBiggerButtonScale, biggerButtonScale, smallerButtonScale } from './photo-editing/scale-image.js';
-import { resetSliderEffect, init } from './photo-editing/effect-image.js';
+import { resetSliderEffect, initEffectImage } from './photo-editing/effect-image.js';
+import { initDownloadPicture } from './download-picture.js';
 
 const uploadInput = document.querySelector('.img-upload__input');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const imgUploadCancelButton = imgUploadOverlay.querySelector('.img-upload__cancel');
+const submitButton = uploadForm.querySelector('.img-upload__submit');
+const error = document.querySelector('.error');
+
+// Текст для кнопки отправки
+const SubmitButtonText = {
+  IDLE: 'Опубликовать',
+  SENDING: 'Отправление...'
+};
+
+// Изменение текста кнопки отправки.
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = SubmitButtonText.SENDING;
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = SubmitButtonText.IDLE;
+};
+
+// Выходит ли сообщение об ошибке.
+const isErrorMessageOpen = () => Boolean(error);
 
 const onEscKeydown = (evt) => {
-  if (isEscapeKey(evt) && !isFieldsInFocus()) {
+  if (isEscapeKey(evt) && !isFieldsInFocus() && !isErrorMessageOpen()) {
     evt.preventDefault();
     closeUploadForm();
   }
@@ -23,9 +46,6 @@ function closeUploadForm () {
   imgUploadOverlay.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onEscKeydown);
-  //smallerButtonScale.removeEventListener('click', onSmallerButtonScale);
-  //biggerButtonScale.removeEventListener('click', onBiggerButtonScale);
-  uploadForm.removeEventListener('submit', onSubmitForm);
 }
 
 const onImgUploadCancelButton = () => {
@@ -39,18 +59,29 @@ const openUploadForm = () => {
   imgUploadOverlay.classList.remove('hidden');
   document.body.classList.add('modal-open');
   onImgUploadCancelButton();
-  init();
+  initEffectImage();
   smallerButtonScale.addEventListener('click', onSmallerButtonScale);
   biggerButtonScale.addEventListener('click', onBiggerButtonScale);
   document.addEventListener('keydown', onEscKeydown);
-  uploadForm .addEventListener('submit', onSubmitForm);
 };
+
 
 const openUploadModal = () => {
   uploadInput.addEventListener('input', () => {
+    initDownloadPicture();
     openUploadForm();
   });
 };
 
+const onSubmitForm = (callback) => {
+  uploadForm.addEventListener('submit', async (evt) =>{
+    evt.preventDefault();
+    if (pristine.validate()) {
+      blockSubmitButton();
+      await callback(new FormData(uploadForm));
+      unblockSubmitButton();
+    }
+  });
+};
 
-export { openUploadModal };
+export { openUploadModal, onSubmitForm, closeUploadForm, uploadInput };

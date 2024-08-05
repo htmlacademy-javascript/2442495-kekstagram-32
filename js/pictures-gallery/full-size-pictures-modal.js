@@ -1,4 +1,4 @@
-import { isEscapeKey } from './utils.js';
+import { isEscapeKey } from '../utils/escape-key.js';
 
 const COMMENTS_AT_ONCE = 5;
 const fullSizePicture = document.querySelector('.big-picture');
@@ -112,4 +112,4 @@ const openPictureModal = (data) => {
   onCloseFullSizePictureButton();
 };
 
-export { openPictureModal };
+export { openPictureModal, closePictureModal };

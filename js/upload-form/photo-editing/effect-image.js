@@ -1,13 +1,13 @@
 import { uploadElement, imageElement } from './scale-image';
 
 
-const effects = uploadElement.querySelector('.effects');
+const effectsContainer = uploadElement.querySelector('.effects');
 const effectSlider = uploadElement.querySelector('.effect-level__slider');
 const effectWrapper = uploadElement.querySelector('.img-upload__effect-level');
 const effectLevelValue = uploadElement.querySelector('.effect-level__value');
 
 // Эффекты фото.
-const photoEffect = {
+const PhotoEffect = {
   DEFAULT: 'none',
   CHROME: 'chrome',
   SEPIA: 'sepia',
@@ -18,23 +18,23 @@ const photoEffect = {
 
 // Настройка эффектов.
 const filterEffects = {
-  [photoEffect.CHROME]: {
+  [PhotoEffect.CHROME]: {
     style:'grayscale',
     unit: '',
   },
-  [photoEffect.SEPIA]: {
+  [PhotoEffect.SEPIA]: {
     style: 'sepia',
     unit: '',
   },
-  [photoEffect.MARVIN]: {
+  [PhotoEffect.MARVIN]: {
     style: 'invert',
     unit: '%',
   },
-  [photoEffect.PHOBOS]: {
+  [PhotoEffect.PHOBOS]: {
     style: 'blur',
     unit: 'px',
   },
-  [photoEffect.HEAT]: {
+  [PhotoEffect.HEAT]: {
     style: 'brightness',
     unit: '',
   }
@@ -42,32 +42,32 @@ const filterEffects = {
 
 // Настройка слайдера.
 const settingEffectsForSlider = {
-  [photoEffect.DEFAULT]: {
+  [PhotoEffect.DEFAULT]: {
     min: 0,
     max: 100,
     step: 1,
   },
-  [photoEffect.CHROME]: {
+  [PhotoEffect.CHROME]: {
     min: 0,
     max: 1,
     step: 0.1,
   },
-  [photoEffect.SEPIA]: {
+  [PhotoEffect.SEPIA]: {
     min: 0,
     max: 1,
     step: 0.1,
   },
-  [photoEffect.MARVIN]: {
+  [PhotoEffect.MARVIN]: {
     min: 0,
     max: 100,
     step: 1,
   },
-  [photoEffect.PHOBOS]: {
+  [PhotoEffect.PHOBOS]: {
     min: 0,
     max: 3,
     step: 0.1,
   },
-  [photoEffect.HEAT]: {
+  [PhotoEffect.HEAT]: {
     min: 1,
     max: 3,
     step: 0.1,
@@ -75,10 +75,10 @@ const settingEffectsForSlider = {
 };
 
 // Выбранный эффект.
-let selectedEffect = photoEffect.DEFAULT;
+let selectedEffect = PhotoEffect.DEFAULT;
 
 // Проверка эффекта по умолчанию.
-const isDefaultEffect = () => selectedEffect === photoEffect.DEFAULT;
+const isDefaultEffect = () => selectedEffect === PhotoEffect.DEFAULT;
 
 const applyImageEffect = () => {
   imageElement.style.filter = isDefaultEffect()
@@ -140,7 +140,14 @@ const setSelectedEffect = (effect) => {
 };
 
 // Сброс эффектов к значениям по умолчанию.
-const resetSliderEffect = () => setSelectedEffect(photoEffect.DEFAULT);
+const resetSliderEffect = () => {
+  if (effectSlider.noUiSlider) {
+
+    // Удаляем слайдер.
+    effectSlider.noUiSlider.destroy();
+  }
+  setSelectedEffect(PhotoEffect.DEFAULT);
+};
 
 // Обработчик события изменения эффекта.
 const onSliderChange = (evt) => {
@@ -148,9 +155,9 @@ const onSliderChange = (evt) => {
 };
 
 // Инициализация настроек слайдера и добавление обработчик событий.
-const init = () => {
+const initEffectImage = () => {
   createSliderEffect(settingEffectsForSlider[selectedEffect]);
-  effects.addEventListener('change', onSliderChange);
+  effectsContainer.addEventListener('change', onSliderChange);
 };
 
-export { resetSliderEffect, init };
+export { resetSliderEffect, initEffectImage };
