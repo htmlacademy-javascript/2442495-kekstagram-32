@@ -2,6 +2,7 @@ import { isEscapeKey } from '../utils/escape-key.js';
 import { isFieldsInFocus, uploadForm, pristine } from './pristine-validation.js';
 import { resetScale, onSmallerButtonScale, onBiggerButtonScale, biggerButtonScale, smallerButtonScale } from './photo-editing/scale-image.js';
 import { resetSliderEffect, initEffectImage } from './photo-editing/effect-image.js';
+import { initDownloadPicture } from './download-picture.js';
 
 const uploadInput = document.querySelector('.img-upload__input');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
@@ -10,7 +11,7 @@ const submitButton = uploadForm.querySelector('.img-upload__submit');
 const error = document.querySelector('.error');
 
 // Текст для кнопки отправки
-const submitButtonText = {
+const SubmitButtonText = {
   IDLE: 'Опубликовать',
   SENDING: 'Отправление...'
 };
@@ -18,12 +19,12 @@ const submitButtonText = {
 // Изменение текста кнопки отправки.
 const blockSubmitButton = () => {
   submitButton.disabled = true;
-  submitButton.textContent = submitButtonText.SENDING;
+  submitButton.textContent = SubmitButtonText.SENDING;
 };
 
 const unblockSubmitButton = () => {
   submitButton.disabled = false;
-  submitButton.textContent = submitButtonText.IDLE;
+  submitButton.textContent = SubmitButtonText.IDLE;
 };
 
 // Выходит ли сообщение об ошибке.
@@ -67,6 +68,7 @@ const openUploadForm = () => {
 
 const openUploadModal = () => {
   uploadInput.addEventListener('input', () => {
+    initDownloadPicture();
     openUploadForm();
   });
 };
@@ -82,4 +84,4 @@ const onSubmitForm = (callback) => {
   });
 };
 
-export { openUploadModal, onSubmitForm, closeUploadForm };
+export { openUploadModal, onSubmitForm, closeUploadForm, uploadInput };

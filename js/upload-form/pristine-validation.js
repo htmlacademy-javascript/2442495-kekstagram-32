@@ -6,7 +6,7 @@ const uploadForm = document.querySelector('.img-upload__form');
 const hashtagsField = uploadForm.querySelector('.text__hashtags');
 const commentsField = uploadForm.querySelector('.text__description');
 
-const errorMessage = {
+const ErrorMessage = {
   INVALID_COUNT: `Максимальное количество хэштегов ${MAX_HASHTAGS}.`,
   REPEAT_HASHTAGS: 'Хэштеги не должны повторятся.',
   INVALID__HASHTAG: 'Введен невалидный хэштег.',
@@ -47,25 +47,25 @@ const isFieldsInFocus = () => hashtagsField === document.activeElement || commen
 pristine.addValidator(
   hashtagsField,
   checkValidHastags,
-  errorMessage.INVALID__HASHTAG
+  ErrorMessage.INVALID__HASHTAG
 );
 
 pristine.addValidator(
   hashtagsField,
   checkHashtagsAmount,
-  errorMessage.INVALID_COUNT
+  ErrorMessage.INVALID_COUNT
 );
 
 pristine.addValidator(
   hashtagsField,
   checkUniqHashtags,
-  errorMessage.REPEAT_HASHTAGS
+  ErrorMessage.REPEAT_HASHTAGS
 );
 
 pristine.addValidator(
   commentsField,
   checkCommentsLength,
-  errorMessage. INVALID_COMMENTS_LENGTH
+  ErrorMessage. INVALID_COMMENTS_LENGTH
 );
 
 

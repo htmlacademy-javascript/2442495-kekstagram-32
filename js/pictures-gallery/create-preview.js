@@ -1,4 +1,3 @@
-//const pictures = document.querySelector('.pictures');
 const picturePreviewTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
 // Создание миниатюры.
@@ -15,9 +14,12 @@ const createPicturePreviews = ({ url, description, likes, comments, id}) => {
   return picturePreview;
 };
 
-// Отображение миниатюры.
+// Отображение миниатюр.
 const renderPicturesPreviews = (previews, container) => {
+  container.querySelectorAll('.picture').forEach((element) => element.remove());
+
   const picturesContainer = document.createDocumentFragment();
+
   previews.forEach((picture) => {
     const picturePreview = createPicturePreviews(picture);
     picturesContainer.append(picturePreview);

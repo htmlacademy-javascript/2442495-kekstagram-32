@@ -2,30 +2,42 @@ import { renderPicturesPreviews } from './create-preview';
 import { openPictureModal } from './full-size-pictures-modal';
 import { showAlert } from '../utils/messages/alert';
 import { getData } from '../api';
+import { initFilterSorting, getFilteredGallery } from './gallery-filter';
+import { debounce } from '../utils/debounce';
 
 const pictures = document.querySelector('.pictures');
 
+// Массив для хранения картинок.
+let picturesList = [];
+
 // Находим картинку по ID.
-const onPictureClick = (e, previews) => {
-  const previewPicture = e.target.closest('[data-id]');
+const onPictureClick = (evt) => {
+  const previewPicture = evt.target.closest('[data-id]');
+
   if (!previewPicture) {
     return;
   }
-  e.preventDefault();
-  const picture = previews.find((item) => item.id === +previewPicture.dataset.id);
+
+  evt.preventDefault();
+
+  const picture = picturesList.find((item) => item.id === +previewPicture.dataset.id);
   openPictureModal(picture);
 };
 
 // Создаем галлерею миниатюр.
-const createPicturesGallery = (previews) => {
-  pictures.addEventListener('click', (e) => onPictureClick(e, previews));
-  renderPicturesPreviews(previews, pictures);
+const createPicturesGallery = (currentPreviews) => {
+  picturesList = currentPreviews;
+  renderPicturesPreviews(picturesList, pictures);
+  pictures.addEventListener('click', onPictureClick);
 };
 
+// Инициализация галлереи картинок с сервера.
 const initPicturesGallery = async () => {
   try {
     const data = await getData();
-    createPicturesGallery(data);
+    const debouncedRenderGallery = debounce(createPicturesGallery);
+    initFilterSorting(data, debouncedRenderGallery);
+    createPicturesGallery(getFilteredGallery());
   } catch {
     showAlert();
   }
