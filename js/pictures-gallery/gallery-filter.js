@@ -3,13 +3,13 @@ import { getRandomNumber } from '../utils/random-integer';
 const PICTURES_AMOUNT = 10;
 const filterElement = document.querySelector('.img-filters');
 
-const Filter = {
+const Filters = {
   DEFAULT: 'filter-default',
   RANDOM: 'filter-random',
   DISCUSSED: 'filter-discussed'
 };
 
-let selectedFilter = Filter.DEFAULT;
+let selectedFilter = Filters.DEFAULT;
 let gallery = [];
 
 // Сортируем комменты.
@@ -17,9 +17,9 @@ const sortByComments = (pictureA, pictureB) => pictureB.comments.length - pictur
 
 const getFilteredGallery = () => {
   switch (selectedFilter) {
-    case Filter.RANDOM:
+    case Filters.RANDOM:
       return [...gallery].sort(getRandomNumber).slice(0, PICTURES_AMOUNT);
-    case Filter.DISCUSSED:
+    case Filters.DISCUSSED:
       return [...gallery].sort(sortByComments);
     default:
       return [...gallery];

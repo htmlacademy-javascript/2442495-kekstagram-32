@@ -5,7 +5,7 @@ import { getData } from '../api';
 import { initFilterSorting, getFilteredGallery } from './gallery-filter';
 import { debounce } from '../utils/debounce';
 
-const pictures = document.querySelector('.pictures');
+const picturesElement = document.querySelector('.pictures');
 
 // Массив для хранения картинок.
 let picturesList = [];
@@ -27,8 +27,8 @@ const onPictureClick = (evt) => {
 // Создаем галлерею миниатюр.
 const createPicturesGallery = (currentPreviews) => {
   picturesList = currentPreviews;
-  renderPicturesPreviews(picturesList, pictures);
-  pictures.addEventListener('click', onPictureClick);
+  renderPicturesPreviews(picturesList, picturesElement);
+  picturesElement.addEventListener('click', onPictureClick);
 };
 
 // Инициализация галлереи картинок с сервера.

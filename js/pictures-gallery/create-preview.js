@@ -1,7 +1,6 @@
 const picturePreviewTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
 // Создание миниатюры.
-
 const createPicturePreviews = ({ url, description, likes, comments, id}) => {
   const picturePreview = picturePreviewTemplate.cloneNode(true);
 

@@ -1,7 +1,7 @@
 import { isEscapeKey } from '../escape-key';
 
-const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
-const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
+const successMessageTemplateElement = document.querySelector('#success').content.querySelector('.success');
+const errorMessageTemplateElement = document.querySelector('#error').content.querySelector('.error');
 
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -37,7 +37,7 @@ const showMessage = (template) => {
   messageElement.querySelector('.success__button, .error__button').addEventListener('click', closeMessage);
 };
 
-const showSuccessMessage = () => showMessage(successMessageTemplate);
-const showErrorMessage = () => showMessage(errorMessageTemplate);
+const showSuccessMessage = () => showMessage(successMessageTemplateElement);
+const showErrorMessage = () => showMessage(errorMessageTemplateElement);
 
 export { showErrorMessage, showSuccessMessage };

@@ -1,13 +1,13 @@
 import { uploadElement, imageElement } from './scale-image';
 
 
-const effectsContainer = uploadElement.querySelector('.effects');
-const effectSlider = uploadElement.querySelector('.effect-level__slider');
-const effectWrapper = uploadElement.querySelector('.img-upload__effect-level');
-const effectLevelValue = uploadElement.querySelector('.effect-level__value');
+const effectsContainerElement = uploadElement.querySelector('.effects');
+const effectSliderElement = uploadElement.querySelector('.effect-level__slider');
+const effectWrapperElement = uploadElement.querySelector('.img-upload__effect-level');
+const effectLevelValueElement = uploadElement.querySelector('.effect-level__value');
 
 // Эффекты фото.
-const PhotoEffect = {
+const PhotoEffects = {
   DEFAULT: 'none',
   CHROME: 'chrome',
   SEPIA: 'sepia',
@@ -17,24 +17,24 @@ const PhotoEffect = {
 };
 
 // Настройка эффектов.
-const filterEffects = {
-  [PhotoEffect.CHROME]: {
+const FilterEffects = {
+  [PhotoEffects.CHROME]: {
     style:'grayscale',
     unit: '',
   },
-  [PhotoEffect.SEPIA]: {
+  [PhotoEffects.SEPIA]: {
     style: 'sepia',
     unit: '',
   },
-  [PhotoEffect.MARVIN]: {
+  [PhotoEffects.MARVIN]: {
     style: 'invert',
     unit: '%',
   },
-  [PhotoEffect.PHOBOS]: {
+  [PhotoEffects.PHOBOS]: {
     style: 'blur',
     unit: 'px',
   },
-  [PhotoEffect.HEAT]: {
+  [PhotoEffects.HEAT]: {
     style: 'brightness',
     unit: '',
   }
@@ -42,32 +42,32 @@ const filterEffects = {
 
 // Настройка слайдера.
 const settingEffectsForSlider = {
-  [PhotoEffect.DEFAULT]: {
+  [PhotoEffects.DEFAULT]: {
     min: 0,
     max: 100,
     step: 1,
   },
-  [PhotoEffect.CHROME]: {
+  [PhotoEffects.CHROME]: {
     min: 0,
     max: 1,
     step: 0.1,
   },
-  [PhotoEffect.SEPIA]: {
+  [PhotoEffects.SEPIA]: {
     min: 0,
     max: 1,
     step: 0.1,
   },
-  [PhotoEffect.MARVIN]: {
+  [PhotoEffects.MARVIN]: {
     min: 0,
     max: 100,
     step: 1,
   },
-  [PhotoEffect.PHOBOS]: {
+  [PhotoEffects.PHOBOS]: {
     min: 0,
     max: 3,
     step: 0.1,
   },
-  [PhotoEffect.HEAT]: {
+  [PhotoEffects.HEAT]: {
     min: 1,
     max: 3,
     step: 0.1,
@@ -75,31 +75,31 @@ const settingEffectsForSlider = {
 };
 
 // Выбранный эффект.
-let selectedEffect = PhotoEffect.DEFAULT;
+let selectedEffect = PhotoEffects.DEFAULT;
 
 // Проверка эффекта по умолчанию.
-const isDefaultEffect = () => selectedEffect === PhotoEffect.DEFAULT;
+const isDefaultEffect = () => selectedEffect === PhotoEffects.DEFAULT;
 
 const applyImageEffect = () => {
   imageElement.style.filter = isDefaultEffect()
     ? 'none'
-    : `${filterEffects[selectedEffect].style}(${effectLevelValue.value}${filterEffects[selectedEffect].unit})`;
+    : `${FilterEffects[selectedEffect].style}(${effectLevelValueElement.value}${FilterEffects[selectedEffect].unit})`;
 };
 
 // Изменение видимости слайдера.
 const toggleSliderVisibility = (isVisible) => {
-  effectWrapper.classList.toggle('hidden', !isVisible);
+  effectWrapperElement.classList.toggle('hidden', !isVisible);
 };
 
 // Обновление эффекта слайдера.
 const onSliderUpdateEffect = () => {
-  effectLevelValue.value = effectSlider.noUiSlider.get();
+  effectLevelValueElement.value = effectSliderElement.noUiSlider.get();
   applyImageEffect();
 };
 
 // Создание слайдера.
 const createSliderEffect = ({ min, max, step }) => {
-  noUiSlider.create(effectSlider, {
+  noUiSlider.create(effectSliderElement, {
     range: { min, max },
     step,
     start: max,
@@ -109,13 +109,13 @@ const createSliderEffect = ({ min, max, step }) => {
       from: (value) => Number(value),
     },
   });
-  effectSlider.noUiSlider.on('update', onSliderUpdateEffect);
+  effectSliderElement.noUiSlider.on('update', onSliderUpdateEffect);
   toggleSliderVisibility(false);
 };
 
 // Обновление и настройка слайдера.
 const updateSliderEffect = ({ min, max, step }) => {
-  effectSlider.noUiSlider.updateOptions({
+  effectSliderElement.noUiSlider.updateOptions({
     range: { min, max },
     step,
     start: max,
@@ -141,12 +141,12 @@ const setSelectedEffect = (effect) => {
 
 // Сброс эффектов к значениям по умолчанию.
 const resetSliderEffect = () => {
-  if (effectSlider.noUiSlider) {
+  if (effectSliderElement.noUiSlider) {
 
     // Удаляем слайдер.
-    effectSlider.noUiSlider.destroy();
+    effectSliderElement.noUiSlider.destroy();
   }
-  setSelectedEffect(PhotoEffect.DEFAULT);
+  setSelectedEffect(PhotoEffects.DEFAULT);
 };
 
 // Обработчик события изменения эффекта.
@@ -157,7 +157,7 @@ const onSliderChange = (evt) => {
 // Инициализация настроек слайдера и добавление обработчик событий.
 const initEffectImage = () => {
   createSliderEffect(settingEffectsForSlider[selectedEffect]);
-  effectsContainer.addEventListener('change', onSliderChange);
+  effectsContainerElement.addEventListener('change', onSliderChange);
 };
 
 export { resetSliderEffect, initEffectImage };
