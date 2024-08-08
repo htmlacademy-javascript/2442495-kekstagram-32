@@ -41,7 +41,7 @@ const checkUniqHashtags = (value) => {
 const checkCommentsLength = (value) => value.length <= MAX_COMMENTS_LENGTH;
 
 // Проверка находятся ли в фокусе поля - комментарии и хэштеги.
-const isFieldsInFocus = () => hashtagsFieldElement === document.activeElement || commentsField === document.activeElement;
+const isFieldsInFocus = () => hashtagsFieldElement === document.activeElement || commentsFieldElement === document.activeElement;
 
 
 pristine.addValidator(
