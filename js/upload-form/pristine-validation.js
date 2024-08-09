@@ -2,18 +2,18 @@ const VALID_HASHTAG = /^#[A-ZА-ЯЁa-zа-яё0-9]{1,19}$/;
 const MAX_HASHTAGS = 5;
 const MAX_COMMENTS_LENGTH = 140;
 
-const uploadForm = document.querySelector('.img-upload__form');
-const hashtagsField = uploadForm.querySelector('.text__hashtags');
-const commentsField = uploadForm.querySelector('.text__description');
+const uploadFormElement = document.querySelector('.img-upload__form');
+const hashtagsFieldElement = uploadFormElement.querySelector('.text__hashtags');
+const commentsFieldElement = uploadFormElement.querySelector('.text__description');
 
-const ErrorMessage = {
+const ErrorMessages = {
   INVALID_COUNT: `Максимальное количество хэштегов ${MAX_HASHTAGS}.`,
   REPEAT_HASHTAGS: 'Хэштеги не должны повторятся.',
   INVALID__HASHTAG: 'Введен невалидный хэштег.',
   INVALID_COMMENTS_LENGTH: `Длина комментария не может составлять больше  ${MAX_COMMENTS_LENGTH} символов.`
 };
 
-const pristine = new Pristine(uploadForm, {
+const pristine = new Pristine(uploadFormElement, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
   errorTextClass: 'img-upload__field-wrapper--error'
@@ -41,32 +41,32 @@ const checkUniqHashtags = (value) => {
 const checkCommentsLength = (value) => value.length <= MAX_COMMENTS_LENGTH;
 
 // Проверка находятся ли в фокусе поля - комментарии и хэштеги.
-const isFieldsInFocus = () => hashtagsField === document.activeElement || commentsField === document.activeElement;
+const isFieldsInFocus = () => hashtagsFieldElement === document.activeElement || commentsFieldElement === document.activeElement;
 
 
 pristine.addValidator(
-  hashtagsField,
+  hashtagsFieldElement,
   checkValidHastags,
-  ErrorMessage.INVALID__HASHTAG
+  ErrorMessages.INVALID__HASHTAG
 );
 
 pristine.addValidator(
-  hashtagsField,
+  hashtagsFieldElement,
   checkHashtagsAmount,
-  ErrorMessage.INVALID_COUNT
+  ErrorMessages.INVALID_COUNT
 );
 
 pristine.addValidator(
-  hashtagsField,
+  hashtagsFieldElement,
   checkUniqHashtags,
-  ErrorMessage.REPEAT_HASHTAGS
+  ErrorMessages.REPEAT_HASHTAGS
 );
 
 pristine.addValidator(
-  commentsField,
+  commentsFieldElement,
   checkCommentsLength,
-  ErrorMessage. INVALID_COMMENTS_LENGTH
+  ErrorMessages. INVALID_COMMENTS_LENGTH
 );
 
 
-export { isFieldsInFocus, uploadForm, pristine };
+export { isFieldsInFocus, uploadFormElement, pristine };
